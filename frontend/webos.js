@@ -22,7 +22,11 @@ function processResponse(resp) {
 			}
 		}
 	} else {
-		$("div#error").html(resp.error.reason);
-		$("div#error").fadeIn('fast').delay(5000).fadeOut('slow');
+		$("div#error").append('<p>'+resp.error.reason+'</p>');
+		$("div#error").slideDown(400);
+		$("div#error").click(function () {
+			$("div#error").slideUp(400);
+			$("div#error").html('<p><small>click to close</small></p>');
+		});
 	}
 }

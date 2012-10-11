@@ -6,8 +6,8 @@
 		<meta name="description" content="">
 		<meta name="author" content="">
 
-		<!--<link href="/public/css/bootstrap.min.css" rel="stylesheet">-->
-		<link rel="stylesheet/less" type="text/css" href="/public/less/bootstrap.less">
+		<link href="/public/css/bootstrap.min.css" rel="stylesheet">
+		<!--<link rel="stylesheet/less" type="text/css" href="/public/less/bootstrap.less">-->
 		<script src="/public/js/jquery.min.js"></script>
 
 		<!--[if lt IE 9]>
@@ -19,7 +19,7 @@
 			$.getJSON("/backend/get_menu", function(data) {
 				var menuitems = []
 				$.each(data, function(key, val) {
-					menuitems.push('<li><a href="' + key + '">' + val + '</li>');
+					menuitems.push('<li><a href="' + val + '">' + key + '</li>');
 				});
 				$('<ul/>', {
 					'class': 'nav',

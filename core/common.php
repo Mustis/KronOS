@@ -1,24 +1,27 @@
 <?php
-include('config.php');
+if (!defined('WEBOS')) exit('Invalid access.');
 
-function make_reply($data, $errcode=NULL) {
-	if ($errcode === NULL) {
-		$resp = array(
-			'success' => TRUE,
-			'time' => time(),
-			'contents' => $data,
-		);
-		echo json_encode($resp);
-	} else {
-		$resp = array(
-			'success' => FALSE,
-			'time' => time(),
-			'error' => array(
-				'code' => $errcode,
-				'reason' => $data,
-			),
-		);
-		echo json_encode($resp);
-	}
+require_once('../config.php');
+
+function make_reply($contents, $data=NULL) {
+	$resp = array(
+		'success' => TRUE,
+		'time' => time(),
+		'contents' => $contents,
+		'data' => $data,
+	);
+	echo json_encode($resp);
+	exit(0);
+}
+function make_error($reason, $errcode) {
+	$resp = array(
+		'success' => FALSE,
+		'time' => time(),
+		'error' => array(
+			'code' => $errcode,
+			'reason' => $reason,
+		),
+	);
+	echo json_encode($resp);
 	exit(0);
 }

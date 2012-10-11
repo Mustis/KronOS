@@ -1,15 +1,16 @@
 <?php
-include('common.php');
+define('WEBOS', TRUE);
+require_once('common.php');
 
 if (empty($_POST['user']) || empty($_POST['pass'])) {
-	make_reply('Username or password empty.', 1);
+	make_error('Username or password empty.', 1);
 }
-$sth = $db->prepare('SELECT uid FROM users WHERE username = ? AND password = ?');
+$sth = $db->prepare('SELECT uid, displayname FROM users WHERE username = ? AND password = ?');
 $sth->bind_param('ss', $_POST['user'], sha1(PWSALT.$_POST['pass']));
 $sth->execute();
-$sth->bind_result($uid);
+$sth->bind_result($uid, $dispname);
 if (!$sth->fetch()) { // no row returned
-	make_reply('Username or password incorrect.', 2);
+	make_error('Username or password incorrect.', 2);
 }
 
 // row returned, user/pw good
@@ -19,4 +20,4 @@ $sth->bind_param('i', $uid);
 $sth->execute();
 $sid = $sth->insert_id;
 
-make_reply(array('uid' => $uid, 'sid' => $sid));
+make_reply('Logged in!', array('uid' => $uid, 'sid' => $sid, 'name' => $dispname));

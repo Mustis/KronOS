@@ -1,0 +1,15 @@
+.message {
+	display:none;
+}
+
+div#banner {
+	text-align:center;
+	margin:0 auto;
+	padding-bottom:.5em;
+	background-color:#e9967a;
+}
+
+div#copyright {
+	text-align:center;
+	margin:5em auto;
+}

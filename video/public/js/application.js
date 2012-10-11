@@ -6,8 +6,14 @@ function loadDefaults() {
 			loadLoginModal();
 		} else {
 			loadMenu();
+			loadBackground();
 		}
 	});
+}
+
+function loadBackground() {
+	background = '<style>body { background-image:url(\'/public/img/default-background.jpg\'); background-position: center top; } </style>'
+	jQuery('body').append(background);
 }
 
 function loadLoginModal() {

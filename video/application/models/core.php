@@ -18,9 +18,9 @@ class Core extends CI_Model {
 			<div class="modal-body">
 				<form class="form-horizontal">
 					<div class="control-group">
-						<label class="control-label" for="inputEmail">Email</label>
+						<label class="control-label" for="inputUsername">Username</label>
 						<div class="controls">
-							<input type="text" id="inputEmail" placeholder="Email">
+							<input type="text" id="inputUsername" placeholder="Username">
 						</div>
 					</div>
 					<div class="control-group">

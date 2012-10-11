@@ -6,12 +6,14 @@
 		<meta name="description" content="">
 		<meta name="author" content="">
 
-		<link href="/public/css/bootstrap.min.css" rel="stylesheet">
+		<link href="/public/css/bootstrap.css" rel="stylesheet">
 		<!--<link rel="stylesheet/less" type="text/css" href="/public/less/bootstrap.less">-->
 
 		<!--[if lt IE 9]>
 			<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 		<![endif]-->
+		<script src="/public/js/prototype.js" type="text/javascript"></script>
+                <script src="/public/js/scriptaculous.js" type="text/javascript"></script>
 	</head>
 	<body>
 		<div class="navbar navbar-inverse navbar-fixed-top">
@@ -29,13 +31,23 @@
 
 		<div class="container-fluid">
 			<div class="row">
-
+				<div id="drag_demo_1" style="width:100px; height:100px; background:#7baaed; border:1px solid #333;"></div>
+					<script type="text/javascript">
+						new Draggable('drag_demo_1');
+					</script>
+				</div>
 			</div>
 		</div>
+<!--		<script src="/public/js/prototype.js" type="text/javascript"></script>
+		<script src="/public/js/scriptaculous.js" type="text/javascript"></script>-->
+		<script src="/public/js/jquery.min.js" type="text/javascript"></script>
+		<script src="/public/js/bootstrap.min.js" type="text/javascript"></script>
+		<script src="/public/js/application.js" type="text/javascript"></script>
+		<script src="/public/js/less-1.3.0.min.js" type="text/javascript"></script>
 
-		<script src="/public/js/jquery.min.js"></script>
-		<script src="/public/js/bootstrap.min.js"></script>
-		<script src="/public/js/application.js"></script>
-		<script src="/public/js/less-1.3.0.min.js"></script>
+		<script type="text/javascript">
+			new Draggable('drag_demo_1');
+                </script>
+
 	</body>
 </html>

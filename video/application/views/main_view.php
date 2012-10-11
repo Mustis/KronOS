@@ -8,27 +8,10 @@
 
 		<link href="/public/css/bootstrap.min.css" rel="stylesheet">
 		<!--<link rel="stylesheet/less" type="text/css" href="/public/less/bootstrap.less">-->
-		<script src="/public/js/jquery.min.js"></script>
 
 		<!--[if lt IE 9]>
 			<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 		<![endif]-->
-
-		<script type="text/javascript">
-		$(document).ready(function () {
-			$.getJSON("/backend/get_menu", function(data) {
-				var menuitems = []
-				$.each(data, function(key, val) {
-					menuitems.push('<li><a href="' + val + '">' + key + '</li>');
-				});
-				$('<ul/>', {
-					'class': 'nav',
-					html: menuitems.join('')
-				}).appendTo('.menudiv');
-			});
-		});
-		</script>
-
 	</head>
 	<body>
 		<div class="navbar navbar-inverse navbar-fixed-top">
@@ -50,7 +33,9 @@
 			</div>
 		</div>
 
+		<script src="/public/js/jquery.min.js"></script>
 		<script src="/public/js/bootstrap.min.js"></script>
+		<script src="/public/js/application.js"></script>
 		<script src="/public/js/less-1.3.0.min.js"></script>
 	</body>
 </html>

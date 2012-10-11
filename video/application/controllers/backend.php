@@ -5,14 +5,23 @@ class Backend extends CI_Controller {
 		parent::__construct();
 
 		$this->load->model('core');
+		$this->load->model('user');
 	}
 
 	public function index() {
 		print "";
 	}
 
+	public function logged_in() {
+		print json_encode($this->user->logged_in);
+	}
+
+	public function login_modal() {
+		print $this->core->get_login();
+	}
+
 	public function get_menu() {
-		return $this->core->get_menu();
+		print json_encode($this->core->get_menu());
 	}
 }
 ?>

@@ -8,7 +8,7 @@ class User extends CI_Model {
 		# Required
         parent::__construct();
 	}
-	
+
 	public function check_login() {
 		if (!$this->logged_in)
 			redirect('account/login/');

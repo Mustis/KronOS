@@ -28,14 +28,8 @@
 				</div>
 			</div>
 		</div>
-
 		<div class="container-fluid">
 			<div class="row">
-				<div id="drag_demo_1" style="width:100px; height:100px; background:#7baaed; border:1px solid #333;"></div>
-					<script type="text/javascript">
-						new Draggable('drag_demo_1');
-					</script>
-				</div>
 			</div>
 		</div>
 <!--		<script src="/public/js/prototype.js" type="text/javascript"></script>

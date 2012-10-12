@@ -45,4 +45,18 @@ function loadMenu() {
 
 }
 
+function submitLogin() {
+	loginData = {
+		'username': jQuery('#inputUsername').val(),
+		'password': jQuery('#inputPassword').val()
+	};
+	jQuery.post('/account/login', loginData, function(data) {
+		if (data.loggedIn) {
+			jQuery('#loginModal').modal('hide');
+			loadMenu();
+			loadBackground();
+		};
+	}, "json");
+}
+
 loadDefaults();

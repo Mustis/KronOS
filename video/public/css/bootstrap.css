@@ -4879,3 +4879,7 @@ button.close {
 .collapse.in {
   height: auto;
 }
+
+body {
+	margin-top: 40px;
+}

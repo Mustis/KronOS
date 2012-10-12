@@ -16,7 +16,7 @@ class Core extends CI_Model {
 				<h3 id="myModalLabel">Login</h3>
 			</div>
 			<div class="modal-body">
-				<form class="form-horizontal">
+				<form class="form-horizontal" method="post" action="javascript:submitLogin();void(0);">
 					<div class="control-group">
 						<label class="control-label" for="inputUsername">Username</label>
 						<div class="controls">
@@ -39,7 +39,7 @@ class Core extends CI_Model {
 				</form>
 			</div>
 			<div class="modal-footer">
-				<button type="submit" class="btn btn-primary">Login</button>
+				<button onClick="submitLogin()" class="btn btn-primary">Login</button>
 			</div>
 		</div>';
 		return $login_modal;

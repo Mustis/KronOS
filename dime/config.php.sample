@@ -1,0 +1,4 @@
+<?php
+$db = new mysqli('host', 'user', 'password', 'db');
+
+define('PWSALT', 'saltstring');

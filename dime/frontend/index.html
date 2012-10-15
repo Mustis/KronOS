@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Mustis WebOS</title>
+	<link rel="stylesheet" href="style.css" type="text/css" />
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+	<script src="webos.js"></script>
+	<script>
+$(document).ready(function () {
+	poster('display.php?app=core&part=logo', {}, function (resp) {
+		$("span#logo").html(resp.contents);
+	});
+	poster('display.php?app=core&part=login', {});
+});
+	</script>
+</head>
+<body>
+<div id="banner"><span id="logo"></span> WebOS - Powered by Mustis</div>
+
+<div id="error" class="message">
+<!-- populated by JS -->
+<p><small>click to close</small></p>
+</div>
+
+<div id="body">
+<!-- populated by JS -->
+</div>
+
+<div id="copyright">Copyright &copy;2012 Mustis.org. <a href="https://github.com/mustis/WebOsProject">On GitHub</a></div>
+</body>
+</html>

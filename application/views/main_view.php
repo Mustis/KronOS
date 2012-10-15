@@ -19,9 +19,9 @@
 				<div class="container-fluid">
 					<a class="brand" href="#">WebOS Dev</a>
 					<div class="nav-collapse collapse menudiv">
-					<!--<p class="navbar-text pull-right">
-							Logged in as <a href="#" class="navbar-link">Username</a>
-						</p>-->
+					<p class="navbar-text pull-right">
+						Logged in as <a href="#" class="navbar-link">Username</a>
+					</p>
 					</div>
 				</div>
 			</div>
@@ -30,10 +30,7 @@
 			<div class="row">
 			</div>
 		</div>
-<!--		<script src="/public/js/prototype.js" type="text/javascript"></script>
-		<script src="/public/js/scriptaculous.js" type="text/javascript"></script>-->
 		<script src="/public/js/jquery.min.js" type="text/javascript"></script>
-<!--		<script src="http://code.jquery.com/ui/1.9.0/jquery-ui.js" type="text/javascript"></script>-->
 		<script src="/public/js/bootstrap.min.js" type="text/javascript"></script>
 		<script src="/public/js/application.js" type="text/javascript"></script>
 		<script src="/public/js/less-1.3.0.min.js" type="text/javascript"></script>

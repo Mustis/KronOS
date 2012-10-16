@@ -20,13 +20,13 @@
 					<a class="brand" href="#">WebOS Dev</a>
 					<div class="nav-collapse collapse menudiv">
 					<p class="navbar-text pull-right">
-						Logged in as <a href="#" class="navbar-link" id="username">Username</a>
+						Logged in as <a href="#" class="navbar-link" id="username"><em>unauthenticated</em></a>
 					</p>
 					</div>
 				</div>
 			</div>
 		</div>
-		<div class="container-fluid">
+		<div id="desktop" class="container-fluid">
 			<div class="row">
 			</div>
 		</div>

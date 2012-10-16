@@ -40,6 +40,8 @@ class User extends CI_Model {
 		$this->db->insert('sessions', $sdata);
 		$this->sid($this->db->insert_id());
 
+		$this->input->set_cookie('session_id', $this->sid());
+
 		return TRUE;
 	}
 
@@ -53,7 +55,8 @@ class User extends CI_Model {
 		if (isset($this->cached_sid)) {
 			return $this->cached_sid;
 		} else {
-			return FALSE; // FIXME should we fetch SID somehow?
+			// FIXME needs IP-lock checking...
+			return $this->cached_sid = $this->input->cookie('session_id');
 		}
 	}
 	public function uid($new=NULL) {

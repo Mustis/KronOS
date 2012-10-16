@@ -1,10 +1,11 @@
 var state
 
 function loadDefaults() {
-	jQuery.getJSON("/backend/logged_in", function(data) {
-		if (!data) {
+	jQuery.getJSON("/backend/logged_in", function(resp) {
+		if (!resp.contents) {
 			loadLoginModal();
 		} else {
+			loadUsername();
 			loadMenu();
 			loadBackground();
 		}
@@ -32,16 +33,24 @@ function loadLoginModal() {
 
 }
 
+function loadUsername() {
+	jQuery("#username").html(state.name);
+}
+
 function loadMenu() {
-	jQuery.getJSON("/backend/get_menu", function(data) {
-		var menuitems = []
-		jQuery.each(data, function(key, val) {
-			menuitems.push('<li><a href="' + val + '">' + key + '</li>');
-		});
-		jQuery('<ul/>', {
-			'class': 'nav',
-			html: menuitems.join('')
-		}).appendTo('.menudiv');
+	jQuery.getJSON("/backend/get_menu", function(resp) {
+		if (resp.success) {
+			var menuitems = []
+			jQuery.each(resp.contents, function(key, val) {
+				menuitems.push('<li><a href="' + val + '">' + key + '</li>');
+			});
+			jQuery('<ul/>', {
+				'class': 'nav',
+				html: menuitems.join('')
+			}).appendTo('.menudiv');
+		} else {
+			throwError(resp.error, 'error', '#desktop');
+		}
 	});
 
 }
@@ -57,21 +66,28 @@ function submitLogin() {
 				state[key] = resp.data[key]
 			}
 			jQuery('#loginModal').modal('hide');
+			loadUsername();
 			loadMenu();
 			loadBackground();
 		} else {
-			var n = jQuery(".alert").length;
-			if (n>2) {
-				jQuery(".alert").first().remove();
-			}
 			throwError(resp.error, 'error', '.messagebody');
 		}
 	}, "json");
 }
 
 function throwError(e, t, c) {
+	var n = jQuery(".alert").length;
+	if (n>2) {
+		jQuery(".alert").first().remove();
+	}
+
 	error = '<div class="alert alert-block alert-' + t + '"><button type="button" class="close" data-dismiss="alert">&times;</button>' + e + '</div>'
 	jQuery(c).append(error);
+}
+
+function logout() {
+	state = {}
+	loadDefaults();
 }
 
 jQuery(function () {

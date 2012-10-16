@@ -1,11 +1,11 @@
-<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php // if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Core extends CI_Model {
+class Core {
 	public function get_menu() {
 		$menu = array(
 			'Desktop'	=> '#',
 			'App'		=> '#',
-			'Test'		=> '#',
+			'Logout'	=> 'javascript:logout();void(0);',
 			'GitHub'	=> 'https://github.com/mustis/WebOsProject'
 		);
 		return $menu;

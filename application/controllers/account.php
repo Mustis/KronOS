@@ -12,8 +12,6 @@ class Account extends CI_Controller {
 	}
 
 	public function login() {
-		if ($this->user->is_logged_in())
-			redirect('account/');
 
 		# Login stuff
 		$user = $this->input->post('username');

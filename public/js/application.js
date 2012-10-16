@@ -3,6 +3,8 @@ var state
 function loadDefaults() {
 	jQuery.getJSON("/backend/logged_in", function(resp) {
 		if (!resp.contents) {
+			hideMenu();
+			hideBackground();
 			loadLoginModal();
 		} else {
 			loadUsername();
@@ -15,6 +17,10 @@ function loadDefaults() {
 function loadBackground() {
 	background = '<style>body { background-image:url(\'/public/img/default-background.jpg\'); background-position: center top; } </style>'
 	jQuery('body').append(background);
+}
+
+function hideBackground() {
+	jQuery('style').remove();
 }
 
 function loadLoginModal() {
@@ -47,12 +53,16 @@ function loadMenu() {
 			jQuery('<ul/>', {
 				'class': 'nav',
 				html: menuitems.join('')
-			}).appendTo('.menudiv');
+			}).appendTo('.menuitems');
 		} else {
 			throwError(resp.error, 'error', '#desktop');
 		}
 	});
 
+}
+
+function hideMenu() {
+	jQuery('.menuitems').empty();
 }
 
 function submitLogin() {

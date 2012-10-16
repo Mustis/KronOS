@@ -18,9 +18,11 @@ class Core extends CI_Model {
 			</div>
 			<form class="form-horizontal" method="post" action="javascript:submitLogin();void(0);">
 				<div class="modal-body">
-					<div class="alert alert-block">
-						<button type="button" class="close" data-dismiss="alert">&times;</button>
-						<strong>Noitce!</strong> site is still being developed.
+					<div class="messagebody">
+						<div class="alert alert-block alert-info">
+							<button type="button" class="close" data-dismiss="alert">&times;</button>
+							<strong>Notice!</strong> site is still being developed.
+						</div>
 					</div>
 					<div class="control-group">
 						<label class="control-label" for="inputUsername">Username</label>

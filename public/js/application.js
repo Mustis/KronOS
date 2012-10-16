@@ -59,8 +59,15 @@ function submitLogin() {
 			jQuery('#loginModal').modal('hide');
 			loadMenu();
 			loadBackground();
+		} else {
+			throwError(resp.error, 'error', '.messagebody');
 		}
 	}, "json");
+}
+
+function throwError(e, t, c) {
+	error = '<div class="alert alert-block alert-' + t + '"><button type="button" class="close" data-dismiss="alert">&times;</button>' + e + '</div>'
+	jQuery(c).append(error);
 }
 
 jQuery(function () {

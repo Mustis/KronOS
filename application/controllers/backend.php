@@ -1,4 +1,5 @@
-<?php
+<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+
 class Backend extends CI_Controller {
 
 	public function __construct() {
@@ -9,7 +10,7 @@ class Backend extends CI_Controller {
 	}
 
 	public function index() {
-		print "";
+		pass;
 	}
 
 	public function logged_in() {

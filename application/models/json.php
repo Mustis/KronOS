@@ -8,6 +8,26 @@ class Json extends CI_Model {
 	}
 
 	public function index() {
-		echo "";
+	}
+
+	public function success($contents, $data=NULL) {
+		$resp = array(
+			'success' => TRUE,
+			'time' => time(),
+			'contents' => $contents,
+			'data' => $data,
+		);
+		return json_encode($resp);
+	}
+
+	public function error($reason) {
+		$resp = array(
+			'success' => False,
+			'time' => time(),
+			'error' => array(
+				'reason' => $reason,
+			),
+		);
+		return json_encode($resp);
 	}
 }

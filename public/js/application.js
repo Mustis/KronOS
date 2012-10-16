@@ -60,6 +60,10 @@ function submitLogin() {
 			loadMenu();
 			loadBackground();
 		} else {
+			var n = jQuery(".alert").length;
+			if (n>2) {
+				jQuery(".alert").first().remove();
+			}
 			throwError(resp.error, 'error', '.messagebody');
 		}
 	}, "json");

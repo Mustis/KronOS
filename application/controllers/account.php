@@ -9,7 +9,6 @@ class Account extends CI_Controller {
 	}
 
 	public function index(){
-		pass;
 	}
 
 	public function login() {

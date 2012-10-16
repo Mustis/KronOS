@@ -10,11 +10,10 @@ class Backend extends CI_Controller {
 	}
 
 	public function index() {
-		pass;
 	}
 
 	public function logged_in() {
-		print json_encode($this->user->logged_in);
+		print json_encode($this->user->is_logged_in());
 	}
 
 	public function login_modal() {

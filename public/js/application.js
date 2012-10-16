@@ -1,4 +1,4 @@
-jQuery.noConflict();
+var state
 
 function loadDefaults() {
 	jQuery.getJSON("/backend/logged_in", function(data) {
@@ -19,14 +19,15 @@ function loadBackground() {
 function loadLoginModal() {
 	jQuery.ajax({
 		url: "/backend/login_modal",
-		success: function (data) { jQuery('body').append(data); },
+		success: function (data) {
+			jQuery('body').append(data);
+			jQuery('#loginModal').modal({
+				backdrop: 'static',
+				keyboard: false,
+			});
+			jQuery('#loginModal').modal('show');
+		},
 		dataType: 'html'
-	}).done(function() {
-		jQuery('#loginModal').modal({
-			backdrop: 'static',
-			keyboard: false,
-		});
-		jQuery('#loginModal').modal('show');
 	});
 
 }
@@ -50,13 +51,21 @@ function submitLogin() {
 		'username': jQuery('#inputUsername').val(),
 		'password': jQuery('#inputPassword').val()
 	};
-	jQuery.post('/account/login', loginData, function(data) {
-		if (data.loggedIn) {
+	jQuery.post('/account/login', loginData, function(resp) {
+		if (resp.success) {
+			for (key in resp.data) {
+				state[key] = resp.data[key]
+			}
 			jQuery('#loginModal').modal('hide');
 			loadMenu();
 			loadBackground();
-		};
+		}
 	}, "json");
 }
 
-loadDefaults();
+jQuery(function () {
+	state = {}
+
+	jQuery.noConflict();
+	loadDefaults();
+});

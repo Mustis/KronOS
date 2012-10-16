@@ -12,21 +12,27 @@ class Account extends CI_Controller {
 	}
 
 	public function login() {
-		if ($this->user->logged_in)
+		if ($this->user->is_logged_in())
 			redirect('account/');
 
 		# Login stuff
-		if (count($this->input->post()) == 2) {
-			$user = $this->input->post('username');
-			$pass = $this->input->post('password');
+		$user = $this->input->post('username');
+		$pass = $this->input->post('password');
 
-			if ($user == 'test' && $pass == 'test') {
-				$this->user->logged_in = True;
-				$response = array(
-					'loggedIn' => True,
-				);
-				print json_encode($response);
-			}
+		if ($user == FALSE || $pass == FALSE) {
+			$this->json->error('Username or password was empty');
+			return;
+		}
+
+		if ($this->user->try_login($user, $pass)) {
+			$data = array(
+				'uid' => $this->user->uid(),
+				'sid' => $this->user->sid(),
+				'name' => $this->user->display_name(),
+			);
+			$this->json->reply('Logged in', $data);
+		} else {
+			$this->json->error('Incorrect credentials');
 		}
 	}
 }

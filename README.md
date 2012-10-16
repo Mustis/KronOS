@@ -3,9 +3,12 @@ WebOsProject
 
 WebOsProject
 
-* http://wos.mustis.org/
-* http://github.com/mustis/WebOsProject
-* Quakenet #mustis.dev
+* Demo: http://wos.mustis.org/
+  * Usernames: user, operator, manager
+  * Password for all is: test
+  * This will have the latest code from the repo at all times.
+* Code: http://github.com/mustis/WebOsProject
+* IRC: Quakenet #mustis.dev
 
 Installing
 ----------

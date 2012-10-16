@@ -1,0 +1,38 @@
+<script>
+$(document).ready(function () {
+	$("#login-dialog").dialog({
+		autoOpen: false,
+		modal: true,
+		buttons: {
+			"Login": function () {
+				poster("login.php", {user: $("#user").val(), pass: $("#pass").val()}, function (resp) {
+					if (resp.success) {
+						processResponse(resp);
+						$("#login-dialog").dialog("close");
+					} else {
+						$("#login-error").append('<p>'+resp.error.reason+'</p>');
+						$("#login-error").slideDown(400);
+					}
+				});
+			},
+			"Cancel": function () {
+				$("#login-dialog").dialog("close");
+			},
+		},
+		close: function () {
+			$("#login-dialog input").val("");
+		},
+	});
+	$("#open-login").button().click(function () {
+		$("#login-dialog").dialog("open");
+	});
+});
+</script>
+<button id="open-login">Press to login</button>
+<div id="login-dialog" title="Login to WebOS">
+	<div id="login-error" class="message error"><small><em>click to close</em></small></div>
+	<form>
+		<label for="user">Username: </label><input type="text" id="user" /><br />
+		<label for="pass">Password: </label><input type="password" id="pass" /><br />
+	</form>
+</div>

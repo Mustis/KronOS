@@ -13,12 +13,11 @@ function make_reply($contents, $data=NULL) {
 	echo json_encode($resp);
 	exit(0);
 }
-function make_error($reason, $errcode) {
+function make_error($reason) {
 	$resp = array(
 		'success' => FALSE,
 		'time' => time(),
 		'error' => array(
-			'code' => $errcode,
 			'reason' => $reason,
 		),
 	);

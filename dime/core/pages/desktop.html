@@ -1,0 +1,57 @@
+<script>
+$(document).ready(function () {
+	$("button#openapps").button().click(function () {
+		var cssShow = $("ul#appmenu").css("display");
+		closeMenu();
+		if (cssShow != "none")
+			return;
+
+		$("ul#appmenu").show();
+		$("ul#appmenu").menu({
+			menus: "ul",
+			select: function (e, ui) {
+				var id = ui.item.attr("id");
+				var title = ui.item.text();
+				newWindow(id, title);
+				poster('display.php?app='+id, {});
+				closeMenu();
+			},
+		});
+	});
+	$("button#opensystem").button().click(function () {
+		var cssShow = $("ul#systemmenu").css("display");
+		closeMenu();
+		if (cssShow != "none")
+			return;
+
+		$("ul#systemmenu").show();
+		$("ul#systemmenu").menu({
+			menus: "ul",
+			select: function (e, ui) {
+				var id = ui.item.attr("id");
+				var title = ui.item.text();
+				newWindow(id, title);
+				poster('display.php?app=core&part='+id, {});
+				closeMenu();
+			},
+		});
+	});
+
+	$("#userdisplay").html(state.name);
+
+	poster('menus.php?m=app', {}, processAppMenu);
+	poster('menus.php?m=system', {}, processSystemMenu);
+
+	state.insertLoc = "div#desktop";
+});
+</script>
+<div id="menubar">
+	<button id="openapps">Apps</button>
+	<button id="opensystem">System</button>
+	<span style="margin-right:0; text-align:right;" id="userdisplay"></span>
+	<span style="margin-right:0; text-align:right;">Clock</span>
+</div>
+<div id="desktop">
+	<ul id="appmenu" class="menu"></ul>
+	<ul id="systemmenu" class="menu"></ul>
+</div>

@@ -1,22 +1,33 @@
-.message {
-	display:none;
+body {
+	background:url('wallpaper.jpg');
 }
 
-div#error {
-	background-color:#aa0000;
+.message {
+	display:none;
 	border:solid 1px black;
 	padding:.2em;
 	margin:.5em;
 }
 
-div#banner {
-	text-align:center;
-	margin:0 auto;
-	padding-bottom:.5em;
-	background-color:#e9967a;
+div#error {
+	background-color:#aa0000;
 }
 
-div#copyright {
-	text-align:center;
-	margin:5em auto;
+div#menubar {
+	position:fixed;
+	top:0px;
+	border:solid 2px gray;
+	width:100%;
+	height:50px;
+	vertical-align:middle;
+}
+.menu {
+	display:none;
+}
+.ui-menu { /* jQuery UI menu element? */
+	width:200px;
+}
+
+div#desktop {
+	margin-top:75px;
 }

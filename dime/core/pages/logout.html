@@ -1,0 +1,8 @@
+<script>
+$(document).ready(function () {
+	$("div#desktop").remove();
+	$("div#body").html("");
+	state = {insertLoc: 'div#body'};
+	poster('display.php?app=core&part=login', {});
+});
+</script>

@@ -1,32 +1,73 @@
 // Mustis WebOS
 
-state = {}
+var state = {
+	insertLoc: 'div#body',
+}
 
 function poster(addr, data, cb) {
 	if (!cb) cb = processResponse;
 
-	if (state.uid) data.uid = state.uid;
-	if (state.sid) data.sid = state.sid;
-	$.post('backend/'+addr, data, cb, 'json');
+	for (key in state) {
+		if (!data[key])
+			data[key] = state[key];
+	}
+	$.post('backend/'+addr, data, function (resp) {
+		cb(resp);
+		newContent();
+	}, 'json');
 }
 
 function processResponse(resp) {
-	loc = "div#body";
 	if (resp.success) {
-		if (resp.contents) {
-			$(loc).html(resp.contents);
-		}
 		if (resp.data) {
 			for (key in resp.data) {
 				state[key] = resp.data[key];
 			}
 		}
+		if (resp.contents) {
+			$(state.insertLoc).append(resp.contents);
+		}
 	} else {
 		$("div#error").append('<p>'+resp.error.reason+'</p>');
 		$("div#error").slideDown(400);
-		$("div#error").click(function () {
-			$("div#error").slideUp(400);
-			$("div#error").html('<p><small>click to close</small></p>');
-		});
 	}
 }
+function processAppMenu(resp) {
+	if (resp.success) {
+		$("ul#appmenu").html(resp.contents);
+	} else {
+		$("div#error").append('<p>'+resp.error.reason+'</p>');
+		$("div#error").slideDown(400);
+	}
+}
+function processSystemMenu(resp) {
+	if (resp.success) {
+		$("ul#systemmenu").html(resp.contents);
+	} else {
+		$("div#error").append('<p>'+resp.error.reason+'</p>');
+		$("div#error").slideDown(400);
+	}
+}
+
+function newWindow(id, title) {
+	$("div#body").append('<div id="'+id+'" class="appwindow"><div class="windowtitle"><a href="javascript:$(\'#'+id+'\').remove();void(0);">'+title+'</a></div><div class="windowbody">&nbsp;</div></div>');
+}
+
+function closeMenu() {
+	$(".menu").each(function () {
+		if ($(this).css("display") != "none") {
+			$(this).menu("destroy");
+			$(this).hide();
+		}
+	});
+}
+
+function newContent() {
+	$(".error").click(function () {
+		$(this).slideUp(400);
+		$(this).html('<small><em>click to close</em></small>');
+	});
+	$(".appwindow").draggable();
+}
+
+$(document).ready(newContent);

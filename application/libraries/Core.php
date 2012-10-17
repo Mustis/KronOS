@@ -5,7 +5,7 @@ class Core {
 		$menu = array(
 			'Desktop'	=> '#',
 			'App'		=> '#',
-			'Logout'	=> 'javascript:logout();void(0);',
+			'Logout'	=> 'javascript:wos.logout();void(0);',
 			'GitHub'	=> 'https://github.com/mustis/WebOsProject'
 		);
 		return $menu;
@@ -16,13 +16,9 @@ class Core {
 			<div class="modal-header">
 				<h3 id="myModalLabel">Login</h3>
 			</div>
-			<form class="form-horizontal" method="post" action="javascript:submitLogin();void(0);">
+			<form class="form-horizontal" method="post" action="javascript:wos.submitLogin();void(0);">
 				<div class="modal-body">
 					<div class="messagebody">
-						<div class="alert alert-block alert-info">
-							<button type="button" class="close" data-dismiss="alert">&times;</button>
-							<strong>Notice!</strong> site is still being developed.
-						</div>
 					</div>
 					<div class="control-group">
 						<label class="control-label" for="inputUsername">Username</label>

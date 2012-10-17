@@ -113,9 +113,4 @@ class User extends CI_Model {
 	public function is_logged_in() {
 		return $this->sid() > 0;
 	}
-
-	public function check_login() {
-		if (!$this->logged_in)
-			redirect('account/login/');
-	}
 }

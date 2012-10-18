@@ -11,14 +11,15 @@ var wos
 		}
 
 		this.loadDefaults = function() {
+			var self = this;
 			$.getJSON("/backend/logged_in", function(resp) {
 				if (!resp.contents) {
-					wos.hideMenu();
-					wos.hideBackground();
-					wos.loadLogin();
+					self.hideMenu();
+					self.hideBackground();
+					self.loadLogin();
 				} else {
-					wos.loadUsername();
-					wos.loadBackground();
+					self.loadUsername();
+					self.loadBackground();
 				}
 			});
 		}
@@ -105,15 +106,15 @@ var wos
 					for (key in resp.data) {
 						state[key] = resp.data[key]
 					}
-					wos.loadUsername();
-					wos.loadMenuItems();
-					wos.loadBackground();
+					this.loadUsername();
+					this.loadMenuItems();
+					this.loadBackground();
 
 					$('#loginModal').modal('hide');
 					$('#inputUsername').val("")
 					$(".alert").remove();
 				} else {
-					wos.showError(resp.error, 'error', '.messagebody');
+					this.showError(resp.error, 'error', '.messagebody');
 				}
 
 				$('#inputPassword').val("")
@@ -130,7 +131,7 @@ var wos
 })( jQuery );
 
 $(function () {
-	wos = $(document.body).pageConstruct();
+	wos = $('document.body').pageConstruct();
 
 	wos.buildPage();
 	wos.loadDefaults();

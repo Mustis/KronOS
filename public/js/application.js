@@ -101,20 +101,21 @@ var wos
 				'username': $('#inputUsername').val(),
 				'password': $('#inputPassword').val()
 			};
+			self = this;
 			$.post('/account/login', loginData, function(resp) {
 				if (resp.success) {
 					for (key in resp.data) {
 						state[key] = resp.data[key]
 					}
-					this.loadUsername();
-					this.loadMenuItems();
-					this.loadBackground();
+					self.loadUsername();
+					self.loadMenuItems();
+					self.loadBackground();
 
 					$('#loginModal').modal('hide');
 					$('#inputUsername').val("")
 					$(".alert").remove();
 				} else {
-					this.showError(resp.error, 'error', '.messagebody');
+					self.showError(resp.error, 'error', '.messagebody');
 				}
 
 				$('#inputPassword').val("")

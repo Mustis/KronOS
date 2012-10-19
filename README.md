@@ -1,13 +1,13 @@
-WebOsProject
+KronOS
 ============
 
-WebOsProject
+KronOS Webtop/WebOS
 
-* Demo: http://wos.mustis.org/
+* Demo: http://kos.mustis.org/
   * Usernames: user, operator, manager
   * Password for all is: test
   * This will have the latest code from the repo at all times.
-* Code: http://github.com/mustis/WebOsProject
+* Code: http://github.com/mustis/KronOS
 * IRC: Quakenet #mustis.dev
 
 Installing

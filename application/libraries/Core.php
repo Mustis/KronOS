@@ -6,7 +6,7 @@ class Core {
 			'Desktop'	=> '#',
 			'App'		=> '#',
 			'Logout'	=> 'javascript:wos.logout();void(0);',
-			'GitHub'	=> 'https://github.com/mustis/WebOsProject'
+			'GitHub'	=> 'https://github.com/mustis/KronOS'
 		);
 		return $menu;
 	}

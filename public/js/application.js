@@ -36,7 +36,7 @@ var wos
 		this.loadMenu = function() {
 			$('body').append('<div class="navbar navbar-inverse navbar-fixed-top"></div>');
 			$('.navbar').append('<div class="navbar-inner"><div class="container-fluid"></div></div>');
-			$('.container-fluid').append('<a class="brand" href="#">WebOS Dev</a>');
+			$('.container-fluid').append('<a class="brand" href="#">KronOS</a>');
 			$('.container-fluid').append('<div class="nav-collapse collapse menudiv"></div>');
 			$('.menudiv').append('<div class="menuitems"></div>');
 			$('.menudiv').append('<p class="navbar-text pull-right">Logged in as <a href="#" class="navbar-link" id="username"><em>unauthenticated</em></a></p>');

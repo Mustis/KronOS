@@ -40,9 +40,7 @@ class User extends CI_Model {
 		$this->db->insert('sessions', $sdata);
 		$this->sid($this->db->insert_id());
 
-		$this->input->set_cookie('session_id', $this->sid());
-
-		return TRUE;
+		return $this->sid();
 	}
 
 	public function sid($new=NULL) {
@@ -52,12 +50,16 @@ class User extends CI_Model {
 			return $old;
 		}
 
-		if (isset($this->cached_sid)) {
+		if (isset($this->cached_sid) && $this->cached_sid != 0) {
 			return $this->cached_sid;
 		} else {
-			// FIXME needs IP-lock checking...
-			return $this->cached_sid = $this->input->cookie('session_id');
+			// TODO IP-lock checking...
+			$this->cached_sid = $this->input->cookie('session_id');
+			if ($this->cached_sid != 0) {
+				return $this->cached_sid;
+			}
 		}
+		return FALSE; // fallback to this
 	}
 	public function uid($new=NULL) {
 		if (!empty($new)) {
@@ -106,8 +108,27 @@ class User extends CI_Model {
 		return FALSE;
 	}
 	public function level($new=NULL) {
-		// TODO TODO TODO
-		$this->cached_level = $new;
+		if (!empty($new)) {
+			$old = $this->cached_level;
+			$this->cached_level = $new;
+			return $old;
+		}
+
+		if (isset($this->cached_level)) {
+			return $this->cached_level;
+		} else {
+			$uid = $this->uid();
+			if ($uid !== FALSE) {
+				$this->db->select('level');
+				$this->db->where('uid', $uid);
+				$q = $this->db->get('users');
+				if ($q->num_rows() > 0) {
+					$row = $q->row();
+					return $this->cached_level = $row->level;
+				}
+			}
+		}
+		return FALSE;
 	}
 
 	public function is_logged_in() {

@@ -5,23 +5,24 @@ var wos
 	$.fn.pageConstruct = function( initvar ) {
 
 		this.buildPage = function() {
-			state = {}
+			document.cookie = "session_id=0;expires=0";
 			this.loadMenu();
 			this.loadContainer();
 		}
 
 		this.loadDefaults = function() {
 			var self = this;
-			$.getJSON("/backend/logged_in", function(resp) {
-				if (!resp.contents) {
+//			$.getJSON("/backend/logged_in", function(resp) {
+//				if (!resp.contents) {
 					self.hideMenu();
 					self.hideBackground();
+					self.setUsername('<em>unauthenticated</em>');
 					self.loadLogin();
-				} else {
-					self.loadUsername();
-					self.loadBackground();
-				}
-			});
+//				} else {
+//					self.loadUsername();
+//					self.loadBackground();
+//				}
+//			});
 		}
 
 		this.showError = function(e, t, c) {
@@ -37,9 +38,8 @@ var wos
 			$('body').append('<div class="navbar navbar-inverse navbar-fixed-top"></div>');
 			$('.navbar').append('<div class="navbar-inner"><div class="container-fluid"></div></div>');
 			$('.container-fluid').append('<a class="brand" href="#">KronOS</a>');
-			$('.container-fluid').append('<div class="nav-collapse collapse menudiv"></div>');
-			$('.menudiv').append('<div class="menuitems"></div>');
-			$('.menudiv').append('<p class="navbar-text pull-right">Logged in as <a href="#" class="navbar-link" id="username"><em>unauthenticated</em></a></p>');
+			$('.container-fluid').append('<div class="menuitems"></div>');
+			$('.container-fluid').append('<p class="navbar-text pull-right">Logged in as <a href="#" class="navbar-link" id="username"><em>unauthenticated</em></a></p>');
 		};
 
 		this.loadContainer = function() {
@@ -50,14 +50,18 @@ var wos
 		this.loadMenuItems = function() {
 			$.getJSON("/backend/get_menu", function(resp) {
 				if (resp.success) {
-					var menuitems = []
+					navStr = '<ul class="nav">';
 					$.each(resp.contents, function(key, val) {
-						menuitems.push('<li><a href="' + val + '">' + key + '</li>');
+						openStr = '<li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">'+key+' <b class="caret"></b></a><ul class="dropdown-menu">';
+						innerStr = '';
+						closeStr = '</ul></li>';
+						$.each(val, function(ikey, ival) {
+							innerStr += '<li><a href=\''+ival+'\'>'+ikey+'</a></li>';
+						});
+						navStr += openStr+innerStr+closeStr;
 					});
-					$('<ul/>', {
-						'class': 'nav',
-						html: menuitems.join('')
-					}).appendTo('.menuitems');
+					navStr += '</ul>';
+					$('.menuitems').html(navStr);
 				} else {
 					throwError(resp.error, 'error', '#desktop');
 				}
@@ -92,8 +96,8 @@ var wos
 			$('style').remove();
 		}
 
-		this.loadUsername = function() {
-			$("#username").html(state.name);
+		this.setUsername = function(name) {
+			$("#username").html(name);
 		}
 
 		this.submitLogin = function() {
@@ -104,10 +108,8 @@ var wos
 			self = this;
 			$.post('/account/login', loginData, function(resp) {
 				if (resp.success) {
-					for (key in resp.data) {
-						state[key] = resp.data[key]
-					}
-					self.loadUsername();
+					document.cookie = "session_id="+resp.data.sid+";expires=0";
+					self.setUsername(resp.data.name);
 					self.loadMenuItems();
 					self.loadBackground();
 
@@ -123,7 +125,7 @@ var wos
 		}
 
 		this.logout = function() {
-			state = {}
+			document.cookie = "session_id=0;expires=0";
 			this.loadDefaults();
 		}
 

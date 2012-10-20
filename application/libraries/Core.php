@@ -1,13 +1,46 @@
 <?php // if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 class Core {
+	protected $CI;
+
+	public function __construct() {
+		$this->CI =& get_instance();
+		$this->CI->load->model('user');
+	}
+
 	public function get_menu() {
-		$menu = array(
+		/*$menu = array(
 			'Desktop'	=> '#',
 			'App'		=> '#',
 			'Logout'	=> 'javascript:wos.logout();void(0);',
 			'GitHub'	=> 'https://github.com/mustis/KronOS'
+		);*/
+		$menu = array();
+
+		$ulev = $this->CI->user->level();
+		if ($ulev == 'operator') $chklevel = "a.access = 'user' OR a.access = 'manager'";
+		elseif ($ulev == 'manager') $chklevel = "1"; // full access -> always true
+		else $chklevel = "a.access = 'user'"; // fallback
+
+		$sql = 'SELECT c.catname AS category, a.appname AS appname, a.aid AS appid FROM categories AS c, apps AS a WHERE c.cid = a.parent AND ('.$chklevel.')';
+		$q = $this->CI->db->query($sql);
+		foreach ($q->result() as $row) {
+			$menu[$row->category][$row->appname] = 'javascript:wos.openApp('.$row->appid.');void(0);';
+		}
+
+		ksort($menu);
+		foreach ($menu as $key => &$cat) {
+			if (is_array($cat)) {
+				ksort($cat);
+			}
+		}
+
+		$menu['System'] = array(
+			'About KronOS'  => 'javascript:wos.openCoreApp("credits");void(0);',
+			'Preferences'   => 'javascript:wos.openCoreApp("account");void(0);',
+			'Logout'        => 'javascript:wos.logout();void(0);',
 		);
+
 		return $menu;
 	}
 	public function get_login() {

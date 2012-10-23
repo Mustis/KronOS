@@ -52,11 +52,11 @@ var wos
 				if (resp.success) {
 					navStr = '<ul class="nav">';
 					$.each(resp.contents, function(key, val) {
-						openStr = '<li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">'+key+' <b class="caret"></b></a><ul class="dropdown-menu">';
+						openStr = '<li class="dropdown"><a tabindex="-1" class="dropdown-toggle" data-toggle="dropdown" href="#">'+key+' <b class="caret"></b></a><ul class="dropdown-menu">';
 						innerStr = '';
 						closeStr = '</ul></li>';
 						$.each(val, function(ikey, ival) {
-							innerStr += '<li><a href=\''+ival+'\'>'+ikey+'</a></li>';
+							innerStr += '<li><a tabindex="-1" href=\''+ival+'\'>'+ikey+'</a></li>';
 						});
 						navStr += openStr+innerStr+closeStr;
 					});

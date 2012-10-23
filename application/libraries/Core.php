@@ -18,7 +18,7 @@ class Core {
 		$menu = array();
 
 		$ulev = $this->CI->user->level();
-		if ($ulev == 'operator') $chklevel = "a.access = 'user' OR a.access = 'manager'";
+		if ($ulev == 'operator') $chklevel = "a.access = 'user' OR a.access = 'operator'";
 		elseif ($ulev == 'manager') $chklevel = "1"; // full access -> always true
 		else $chklevel = "a.access = 'user'"; // fallback
 
@@ -56,15 +56,16 @@ class Core {
 					<div class="control-group">
 						<label class="control-label" for="inputUsername">Username</label>
 						<div class="controls">
-							<input type="text" id="inputUsername" placeholder="Username">
+							<input type="text" id="inputUsername" placeholder="Username" tabindex="1">
 						</div>
 					</div>
 					<div class="control-group">
 						<label class="control-label" for="inputPassword">Password</label>
 						<div class="controls">
-							<input type="password" id="inputPassword" placeholder="Password">
+							<input type="password" id="inputPassword" placeholder="Password" tabindex="2">
 						</div>
 					</div>
+<!--
 					<div class="control-group">
 						<div class="controls">
 							<label class="checkbox">
@@ -72,9 +73,10 @@ class Core {
 							</label>
 						</div>
 					</div>
+-->
 				</div>
 				<div class="modal-footer">
-					<button type="submit" class="btn btn-primary">Login</button>
+					<button type="submit" class="btn btn-primary" tabindex="3">Login</button>
 				</div>
 			</form>
 		</div>';

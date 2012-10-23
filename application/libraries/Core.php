@@ -15,7 +15,10 @@ class Core {
 			'Logout'	=> 'javascript:wos.logout();void(0);',
 			'GitHub'	=> 'https://github.com/mustis/KronOS'
 		);*/
-		$menu = array();
+		$menu = array(
+			'Apps'		=> array(),
+			'System'	=> array(),
+		);
 
 		$ulev = $this->CI->user->level();
 		if ($ulev == 'operator') $chklevel = "a.access = 'user' OR a.access = 'operator'";
@@ -25,11 +28,11 @@ class Core {
 		$sql = 'SELECT c.catname AS category, a.appname AS appname, a.aid AS appid FROM categories AS c, apps AS a WHERE c.cid = a.parent AND ('.$chklevel.')';
 		$q = $this->CI->db->query($sql);
 		foreach ($q->result() as $row) {
-			$menu[$row->category][$row->appname] = 'javascript:wos.openApp('.$row->appid.');void(0);';
+			$menu['Apps'][$row->category][$row->appname] = 'javascript:wos.openApp('.$row->appid.');void(0);';
 		}
 
-		ksort($menu);
-		foreach ($menu as $key => &$cat) {
+		ksort($menu['Apps']);
+		foreach ($menu['Apps'] as $key => &$cat) {
 			if (is_array($cat)) {
 				ksort($cat);
 			}

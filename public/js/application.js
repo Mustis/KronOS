@@ -56,7 +56,15 @@ var wos
 						innerStr = '';
 						closeStr = '</ul></li>';
 						$.each(val, function(ikey, ival) {
-							innerStr += '<li><a tabindex="-1" href=\''+ival+'\'>'+ikey+'</a></li>';
+							if (typeof ival == "object") {
+								innerStr += '<li class="dropdown-submenu"><a tabindex="-1" href="#">'+ikey+'</a><ul class="dropdown-menu">';
+								$.each(ival, function(iikey, iival) {
+									innerStr += '<li><a tabindex="-1" href=\''+iival+'\'>'+iikey+'</a></li>';
+								});
+								innerStr += '</ul></li>';
+							} else {
+								innerStr += '<li><a tabindex="-1" href=\''+ival+'\'>'+ikey+'</a></li>';
+							}
 						});
 						navStr += openStr+innerStr+closeStr;
 					});

@@ -140,39 +140,6 @@ var wos
 	};
 })( jQuery );
 
-(function( $ ) {
-        $.fn.modalHelper = function( initvar ) {
-
-	id = initvar;
-
-	this.init = function() {
-		this.append('<div id="'+this.id+'" class="modal hide fade"></div>');
-
-		this.id = '#'+this.id;
-
-		$(this.id).append('<div class="modal-header"></div>');
-		$(this.id+'>.modal-header').append('<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h3>unspecified</h3>');
-		$(this.id).append('<div class="modal-body"></div>');
-		$(this.id).append('<div class="modal-footer"></div>');
-	}
-
-//	this.title = function() {
-//		return
-//	}
-
-//	this.content = function() {
-//		return
-//	}
-
-	this.show = function() {
-		$(this.id).modal('show');
-	}
-
-	return this;
-	};
-})( jQuery );
-
-
 $(function () {
 	wos = $('document.body').pageConstruct();
 

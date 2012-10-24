@@ -131,6 +131,33 @@ var wos
 			}, "json");
 		}
 
+		this.credits = function() {
+			$('body').append('<div id="credits" class="modal hide fade"></div>');
+			
+			$('#credits').append('<div class="modal-header">');
+			$('#credits').append('<div class="modal-body">');
+			$('#credits').append('<div class="modal-footer">');
+
+			$('').append('');
+			$('#credits>.modal-header').append('<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>');
+			$('#credits>.modal-header').append('<h3 id="creditsLabel">About KronOS</h3>');
+
+			$('#credits>.modal-body').append('<h4>Committers</h4>');
+			$('#credits>.modal-body').append('<ul><li>BiohZn</li><li>DimeCadmium</li><li>Oscar</li><li>hyster</li><li>DarkDeviL</li></ul>');
+
+			$('#credits>.modal-footer').append('<button class="btn" aria-hidden="true" onClick="wos.hideCredits();">Close</button>');
+
+			$('#credits').modal({
+				backdrop: false
+			});
+			$('#credits').modal('show');
+		}
+
+		this.hideCredits = function() {
+			$('#credits').modal('hide');
+			$('#credits').remove();
+		}
+
 		this.logout = function() {
 			document.cookie = "session_id=0;expires=0";
 			this.loadDefaults();

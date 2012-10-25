@@ -39,7 +39,8 @@ class Core {
 		}
 
 		$menu['System'] = array(
-			'About KronOS'  => 'javascript:wos.openCoreApp("credits");void(0);',
+			'About KronOS'  => 'javascript:wos.credits();void(0);',
+//			'About KronOS'  => 'javascript:wos.openCoreApp("credits");void(0);',
 			'Preferences'   => 'javascript:wos.openCoreApp("account");void(0);',
 			'Logout'        => 'javascript:wos.logout();void(0);',
 		);

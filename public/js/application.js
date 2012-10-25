@@ -39,7 +39,10 @@ var wos
 			$('.navbar').append('<div class="navbar-inner"><div class="container-fluid"></div></div>');
 			$('.container-fluid').append('<a class="brand" href="#">KronOS</a>');
 			$('.container-fluid').append('<div class="menuitems"></div>');
-			$('.container-fluid').append('<p class="navbar-text pull-right">Logged in as <a href="#" class="navbar-link" id="username"><em>unauthenticated</em></a></p>');
+			$('.container-fluid').append('<p class="navbar-text pull-right">Logged in as <a href="#" class="navbar-link" id="username"><em>unauthenticated</em></a> &bull; <span style="font-family:monospace;"><span id="clock"></span></span></p>');
+			$('#clock').jclock({
+				format: '%H:%M',
+			});
 		};
 
 		this.loadContainer = function() {

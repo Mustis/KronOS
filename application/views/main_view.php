@@ -15,6 +15,7 @@
 	</head>
 	<body>
 		<script src="/public/js/jquery.min.js" type="text/javascript"></script>
+		<script src="/public/js/jquery.jclock.js" type="text/javascript"></script>
 		<script src="/public/js/bootstrap.min.js" type="text/javascript"></script>
 		<script src="/public/js/application.js" type="text/javascript"></script>
 		<script src="/public/js/less-1.3.0.min.js" type="text/javascript"></script>

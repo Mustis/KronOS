@@ -25,12 +25,13 @@ DROP TABLE IF EXISTS `apps`;
 CREATE TABLE `apps` (
   `aid` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `appname` varchar(100) NOT NULL,
+  `classname` varchar(100) NOT NULL,
   `parent` int(10) unsigned NOT NULL,
   `filename` varchar(100) NOT NULL,
   `access` enum('user','operator','manager') NOT NULL DEFAULT 'user',
   PRIMARY KEY (`aid`),
   UNIQUE KEY `appname` (`appname`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -39,6 +40,7 @@ CREATE TABLE `apps` (
 
 LOCK TABLES `apps` WRITE;
 /*!40000 ALTER TABLE `apps` DISABLE KEYS */;
+INSERT INTO `apps` VALUES (1,'App Zone','App_Zone',1,'core/appzone.php','manager'),(2,'User Manager','User_Manager',1,'core/users.php','operator'),(3,'App Settings','App_Settings_Manager',1,'core/appsetup.php','operator');
 /*!40000 ALTER TABLE `apps` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -54,7 +56,7 @@ CREATE TABLE `categories` (
   `catname` varchar(100) NOT NULL,
   PRIMARY KEY (`cid`),
   UNIQUE KEY `catname` (`catname`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -63,6 +65,7 @@ CREATE TABLE `categories` (
 
 LOCK TABLES `categories` WRITE;
 /*!40000 ALTER TABLE `categories` DISABLE KEYS */;
+INSERT INTO `categories` VALUES (1,'Administration');
 /*!40000 ALTER TABLE `categories` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -152,4 +155,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2012-10-11 11:19:30
+-- Dump completed on 2012-10-27 16:31:07

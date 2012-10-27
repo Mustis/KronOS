@@ -1,6 +1,3 @@
-var state
-var wos
-
 (function( $ ) {
 	$.fn.pageConstruct = function( initvar ) {
 
@@ -167,7 +164,43 @@ var wos
 			this.loadDefaults();
 		}
 
- 		return this;
+		this.openApp = function(appid) {
+			$.getJSON("/control/open/"+appid, function(resp) {
+				if (resp.success) {
+					var repl = resp.contents
+					var target = 'div#'+repl.name;
+
+					if ($(target).length != 0) {
+						this.closeApp(target);
+					}
+
+					this.apps[repl.name] = {aid: appid, instance: repl.id, title: repl.title, target: target};
+
+					$('body').append('<div id="'+repl.name+'" class="modal hide fade"></div>');
+
+					$(target).append('<div class="modal-header"></div>');
+					$(target).append('<div class="modal-body"></div>');
+					$(target).append('<div class="modal-footer"></div>');
+
+					$(target+'>.modal-header').append('<button class="btn appclose" aria-hidden="true" onClick="wos.closeApp(\'#'+repl.name+'\');void(0);">&times;</button>');
+					$(target+'>.modal-header').append('<h3 class="appLabel">'+repl.title+'</h3>');
+
+					$(target+'>.modal-body').append(repl.interior);
+				} else {
+					throwError(resp.error, 'error', '#desktop');
+				}
+			});
+		}
+
+		this.openCoreApp = function(appname) {
+		}
+
+		this.closeApp = function(target) {
+			$(target).modal('hide');
+			$(target).remove();
+		}
+
+		return this;
 	};
 })( jQuery );
 

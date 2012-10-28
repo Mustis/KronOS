@@ -1,14 +1,19 @@
 <?php
 
 abstract class KOS_App {
-	abstract function __construct($iid);
-	abstract public function iid();
+	function __construct($iid) {
+		$this->iid = $iid;
+	}
+	public function iid() {
+		return $this->iid;
+	}
+
 	abstract public function appName();
 	abstract public function windowTitle();
 	abstract public function windowContents();
 
-	abstract public function opening();
-	abstract public function closing();
+	public function opening() { return; }
+	public function closing() { return; }
 
 	abstract public function act($action);
 }

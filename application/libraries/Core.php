@@ -25,10 +25,14 @@ class Core {
 		elseif ($ulev == 'manager') $chklevel = "1"; // full access -> always true
 		else $chklevel = "a.access = 'user'"; // fallback
 
-		$sql = 'SELECT c.catname AS category, a.appname AS appname, a.aid AS appid FROM categories AS c, apps AS a WHERE c.cid = a.parent AND ('.$chklevel.')';
+		$sql = 'SELECT a.parent AS catid, c.catname AS category, a.appname AS appname, a.aid AS appid FROM categories AS c, apps AS a WHERE c.cid = a.parent AND ('.$chklevel.')';
 		$q = $this->CI->db->query($sql);
 		foreach ($q->result() as $row) {
-			$menu['Apps'][$row->category][$row->appname] = 'javascript:wos.openApp('.$row->appid.');void(0);';
+			if ($row->category == 'System') {
+				$menu['System'][$row->appname] = 'javascript:wos.openApp('.$row->appid.');void(0);';
+			} else {
+				$menu['Apps'][$row->category][$row->appname] = 'javascript:wos.openApp('.$row->appid.');void(0);';
+			}
 		}
 
 		ksort($menu['Apps']);
@@ -38,12 +42,8 @@ class Core {
 			}
 		}
 
-		$menu['System'] = array(
-			'About KronOS'  => 'javascript:wos.credits();void(0);',
-//			'About KronOS'  => 'javascript:wos.openCoreApp("credits");void(0);',
-			'Preferences'   => 'javascript:wos.openCoreApp("account");void(0);',
-			'Logout'        => 'javascript:wos.logout();void(0);',
-		);
+		ksort($menu['System']);
+		$menu['System']['Logout'] = 'javascript:wos.logout();void(0);';
 
 		return $menu;
 	}

@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Session extends CI_Model {
+class Msession extends CI_Model {
 	public function __construct() {
 		$this->load->model('user');
 
@@ -22,11 +22,11 @@ class Session extends CI_Model {
 		if (!is_file($this->config->item('app_prefix').$file)) {
 			return setError('App file does not exist');
 		}
-		if (!(@include_once $this->config->item('app_prefix').$file)) {
+		if (!(include_once $this->config->item('app_prefix').$file)) {
 			return setError('Include error');
 		}
 
-		return new ($class)($iid)
+		return new $class($iid);
 	}
 	public function getAppInst($iid) {
 		if ($this->apps[$iid]) {
@@ -73,9 +73,9 @@ class Session extends CI_Model {
 			'aid' => $aid,
 		);
 		$this->db->insert('session_apps', $idata);
+		$iid = $this->db->insert_id();
 
-
-		$app = $this->getApp($aid, $this->db->insert_id(), $row->filename, $row->classname);
+		$app = $this->getApp($aid, $iid, $row->filename, $row->classname);
 		if ($app) {
 			$app->opening();
 			$this->apps[$iid] = $app;

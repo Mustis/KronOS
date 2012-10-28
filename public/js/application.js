@@ -168,24 +168,23 @@
 			$.getJSON("/control/open/"+appid, function(resp) {
 				if (resp.success) {
 					var repl = resp.contents
-					var target = 'div#'+repl.name;
+					var target = 'div#'+repl.name+repl.id;
 
-					if ($(target).length != 0) {
-						this.closeApp(target);
-					}
+					apps[repl.name] = {aid: appid, instance: repl.id, title: repl.title, target: target};
 
-					this.apps[repl.name] = {aid: appid, instance: repl.id, title: repl.title, target: target};
-
-					$('body').append('<div id="'+repl.name+'" class="modal hide fade"></div>');
+					$('body').append('<div id="'+repl.name+repl.id+'" class="app modal hide fade"></div>');
 
 					$(target).append('<div class="modal-header"></div>');
 					$(target).append('<div class="modal-body"></div>');
 					$(target).append('<div class="modal-footer"></div>');
 
-					$(target+'>.modal-header').append('<button class="btn appclose" aria-hidden="true" onClick="wos.closeApp(\'#'+repl.name+'\');void(0);">&times;</button>');
+					$(target+'>.modal-header').append('<button type="button" class="close" aria-hidden="true" data-dismiss="modal" onClick="wos.closeApp(\'#'+repl.name+'\');void(0);">&times;</button>');
 					$(target+'>.modal-header').append('<h3 class="appLabel">'+repl.title+'</h3>');
 
 					$(target+'>.modal-body').append(repl.interior);
+
+					$(target).modal({ backdrop: false });
+					$(target).modal('show');
 				} else {
 					throwError(resp.error, 'error', '#desktop');
 				}
@@ -205,6 +204,7 @@
 })( jQuery );
 
 $(function () {
+	apps = {}
 	wos = $('document.body').pageConstruct();
 
 	wos.buildPage();

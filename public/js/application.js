@@ -9,7 +9,7 @@
 
 		this.loadDefaults = function() {
 			var self = this;
-//			$.getJSON("/backend/logged_in", function(resp) {
+//			$.getJSON("backend/logged_in", function(resp) {
 //				if (!resp.contents) {
 					self.hideMenu();
 					self.hideBackground();
@@ -48,7 +48,7 @@
 		};
 
 		this.loadMenuItems = function() {
-			$.getJSON("/backend/get_menu", function(resp) {
+			$.getJSON("backend/get_menu", function(resp) {
 				if (resp.success) {
 					navStr = '<ul class="nav">';
 					$.each(resp.contents, function(key, val) {
@@ -82,7 +82,7 @@
 
 		this.loadLogin = function() {
 			$.ajax({
-				url: "/backend/login_modal",
+				url: "backend/login_modal",
 				success: function (data) {
 					$('body').append(data);
 					$('#loginModal').modal({
@@ -114,7 +114,7 @@
 				'password': $('#inputPassword').val()
 			};
 			self = this;
-			$.post('/account/login', loginData, function(resp) {
+			$.post('account/login', loginData, function(resp) {
 				if (resp.success) {
 					document.cookie = "session_id="+resp.data.sid+";expires=0";
 					self.setUsername(resp.data.name);
@@ -165,7 +165,7 @@
 		}
 
 		this.openApp = function(appid) {
-			$.getJSON("/control/open/"+appid, function(resp) {
+			$.getJSON("control/open/"+appid, function(resp) {
 				if (resp.success) {
 					var repl = resp.contents
 					var target = 'div#'+repl.name+repl.id;

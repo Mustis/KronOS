@@ -1,5 +1,6 @@
 *.pem
 *~
 *.bak
+.htaccess
 config.php
 database.php

@@ -33,13 +33,15 @@
 
 		this.loadMenu = function() {
 			$('body').append('<div class="navbar navbar-inverse navbar-fixed-top"></div>');
-			$('.navbar').append('<div class="navbar-inner"><div class="container-fluid"></div></div>');
-			$('.container-fluid').append('<a class="brand" href="#">KronOS</a>');
-			$('.container-fluid').append('<div class="menuitems"></div>');
-			$('.container-fluid').append('<p class="navbar-text pull-right">Logged in as <a href="#" class="navbar-link" id="username"><em>unauthenticated</em></a> &bull; <span style="font-family:monospace;"><span id="clock"></span></span></p>');
+			$('.navbar').append('<div class="navbar-inner"><div id="menu" class="container-fluid"></div></div>');
+			$('#menu').append('<a class="brand dropdown-toggle" href="#" tabindex="-1" data-toggle="dropdown">KronOS <b class="caret"></b></a><ul id="coreapps" class="dropdown-menu"></ul>');
+			$('#menu').append('<div class="menuitems"></div>');
+			$('#menu').append('<p class="navbar-text pull-right">Logged in as <a href="#" class="navbar-link" id="username"><em>unauthenticated</em></a> &bull; <span style="font-family:monospace;"><span id="clock"></span></span></p>');
 			$('#clock').jclock({
 				format: '%H:%M',
 			});
+
+			$('#coreapps').append('<li><a tabindex="-1" href="javascript:wos.openCoreApp(\'credits\');void(0);">Credits</a></li>');
 		};
 
 		this.loadContainer = function() {
@@ -178,7 +180,7 @@
 					$(target).append('<div class="modal-body"></div>');
 					$(target).append('<div class="modal-footer"></div>');
 
-					$(target+'>.modal-header').append('<button type="button" class="close" aria-hidden="true" data-dismiss="modal" onClick="wos.closeApp(\'#'+repl.name+'\');void(0);">&times;</button>');
+					$(target+'>.modal-header').append('<button type="button" class="close" aria-hidden="true" data-dismiss="modal" onClick="wos.closeApp(\'#'+repl.name+repl.id+'\');void(0);">&times;</button>');
 					$(target+'>.modal-header').append('<h3 class="appLabel">'+repl.title+'</h3>');
 
 					$(target+'>.modal-body').append(repl.interior);
@@ -192,6 +194,7 @@
 		}
 
 		this.openCoreApp = function(appname) {
+			this.openApp("-1/"+appname);
 		}
 
 		this.closeApp = function(target) {

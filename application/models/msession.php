@@ -1,5 +1,7 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
+/* TODO: check if app was succesfully opened, if not delete the instance */
+
 class Msession extends CI_Model {
 	public function __construct() {
 		$this->load->model('user');
@@ -11,6 +13,7 @@ class Msession extends CI_Model {
 	}
 
 	protected function setError($error) {
+		trigger_error($error);
 		$this->lastError = $error;
 		return FALSE;
 	}
@@ -20,10 +23,10 @@ class Msession extends CI_Model {
 
 	protected function getApp($aid, $iid, $file, $class) {
 		if (!is_file($this->config->item('app_prefix').$file)) {
-			return setError('App file does not exist');
+			return $this->setError('App file does not exist');
 		}
 		if (!(include_once $this->config->item('app_prefix').$file)) {
-			return setError('Include error');
+			return $this->setError('Include error');
 		}
 
 		return new $class($iid);
@@ -50,6 +53,21 @@ class Msession extends CI_Model {
 		}
 	}
 
+	public function openCoreApp($name) {
+		$idata = array(
+			'sid' => $this->user->sid(),
+			'aid' => -1,
+		);
+		$this->db->insert('session_apps', $idata);
+		$iid = $this->db->insert_id();
+
+		$app = $this->getApp(-1, $iid, 'core/'.$name.'.php', ucfirst($name));
+		if ($app) {
+			$app->opening();
+			$this->apps[$iid] = $app;
+		}
+		return $app;
+	}
 	public function openApp($aid) {
 		$sid = $this->user->sid();
 		$level = $this->user->level();
@@ -58,14 +76,14 @@ class Msession extends CI_Model {
 		$this->db->where('aid', $aid);
 		$q = $this->db->get('apps');
 		if ($q->num_rows() == 0)
-			return setError('No such app');
+			return $this->setError('No such app');
 		$row = $q->row();
 		if (!$level)
-			return setError('No access');
+			return $this->setError('No access');
 		elseif ($row->access == 'operator' && $level == 'user')
-			return setError('No access');
-		elseif ($row->access == 'manager' && $level != 'maneger')
-			return setError('No access');
+			return $this->setError('No access');
+		elseif ($row->access == 'manager' && $level != 'manager')
+			return $this->setError('No access');
 		// they have access, go on
 
 		$idata = array(

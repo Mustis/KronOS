@@ -1,5 +1,6 @@
 <?php
 
+
 /*
  *---------------------------------------------------------------
  * APPLICATION ENVIRONMENT
@@ -38,6 +39,10 @@ if (defined('ENVIRONMENT'))
 		break;
 	
 		case 'testing':
+			ini_set("display_error", 0);
+			error_report(E_ALL);
+		break;
+
 		case 'production':
 			error_reporting(0);
 		break;

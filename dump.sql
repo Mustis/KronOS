@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 5.5.27, for debian-linux-gnu (x86_64)
+-- MySQL dump 10.13  Distrib 5.1.72, for debian-linux-gnu (i486)
 --
--- Host: localhost    Database: dime_wos
+-- Host: localhost    Database: kosjrunyon
 -- ------------------------------------------------------
--- Server version	5.5.27-1~dotdeb.0
+-- Server version	5.1.72-2
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -31,7 +31,7 @@ CREATE TABLE `apps` (
   `access` enum('user','operator','manager') NOT NULL DEFAULT 'user',
   PRIMARY KEY (`aid`),
   UNIQUE KEY `appname` (`appname`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -40,7 +40,7 @@ CREATE TABLE `apps` (
 
 LOCK TABLES `apps` WRITE;
 /*!40000 ALTER TABLE `apps` DISABLE KEYS */;
-INSERT INTO `apps` VALUES (1,'App Zone','App_Zone',1,'core/appzone.php','manager'),(2,'User Manager','User_Manager',1,'core/users.php','operator'),(3,'App Settings','App_Settings_Manager',1,'core/appsetup.php','operator');
+INSERT INTO `apps` VALUES (1,'App Zone','App_Zone',2,'appzone.php','manager'),(2,'User Manager','User_Manager',2,'users.php','operator'),(3,'App Settings','App_Settings_Manager',2,'appsetup.php','operator');
 /*!40000 ALTER TABLE `apps` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -56,7 +56,7 @@ CREATE TABLE `categories` (
   `catname` varchar(100) NOT NULL,
   PRIMARY KEY (`cid`),
   UNIQUE KEY `catname` (`catname`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -65,7 +65,7 @@ CREATE TABLE `categories` (
 
 LOCK TABLES `categories` WRITE;
 /*!40000 ALTER TABLE `categories` DISABLE KEYS */;
-INSERT INTO `categories` VALUES (1,'Administration');
+INSERT INTO `categories` VALUES (1,'System'),(2,'Administration');
 /*!40000 ALTER TABLE `categories` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -81,7 +81,7 @@ CREATE TABLE `session_apps` (
   `sid` int(10) unsigned NOT NULL,
   `aid` int(10) unsigned NOT NULL,
   PRIMARY KEY (`iid`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -107,7 +107,7 @@ CREATE TABLE `sessions` (
   `last` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `lockip` text NOT NULL,
   PRIMARY KEY (`sid`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -134,7 +134,7 @@ CREATE TABLE `users` (
   `display_name` varchar(100) NOT NULL,
   `level` enum('user','operator','manager') NOT NULL DEFAULT 'user',
   PRIMARY KEY (`uid`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -143,6 +143,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
+INSERT INTO `users` VALUES (1,'manager',SHA1('saltdiManager'),'saltd','Manager','manager'); -- Password will be "iManager"
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -155,4 +156,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2012-10-27 16:31:07
+-- Dump completed on 2013-11-01  3:43:00

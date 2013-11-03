@@ -23,7 +23,7 @@ class User_Manager extends KOS_App {
 	}
 
 	public static function scripts($aid) {
-		return 'wos.appscripts['.$aid.'] = {load: function(t){this.target = t; $(t).append("<p><var>"+t+"</var></p>");}};';
+		return 'this.load = function(t){this.target = t; $(t).append("<p><var>"+t+"</var></p>");}';
 	}
 
 	public function windowContents() {

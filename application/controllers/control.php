@@ -36,7 +36,7 @@ class Control extends CI_Controller {
 	}
 
 	public function scripts($aid) {
-		$this->output->set_output(call_user_func(array($this->msession->getAppClass($aid), 'scripts'), $aid));
+		$this->output->set_output('wos.appscripts['.(int)$aid.'] = new function(){'.call_user_func(array($this->msession->getAppClass($aid), 'scripts'), $aid).'}();');
 	}
 
 	public function close($iid) {

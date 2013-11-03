@@ -21,11 +21,11 @@ class Core {
 		);
 
 		$ulev = $this->CI->user->level();
-		if ($ulev == 'operator') $chklevel = "a.access = 'user' OR a.access = 'operator'";
-		elseif ($ulev == 'manager') $chklevel = "1"; // full access -> always true
+		if ($ulev == 'manager') $chklevel = "1"; // full access -> always true
+		elseif ($ulev == 'operator') $chklevel = "a.access = 'user' OR a.access = 'operator'";
 		else $chklevel = "a.access = 'user'"; // fallback
 
-		$sql = 'SELECT a.parent AS catid, c.catname AS category, a.appname AS appname, a.aid AS appid FROM categories AS c, apps AS a WHERE c.cid = a.parent AND ('.$chklevel.')';
+		$sql = 'SELECT a.parent AS catid, c.catname AS category, a.appname AS appname, a.aid AS appid FROM categories AS c, apps AS a WHERE a.active = 1 AND c.cid = a.parent AND ('.$chklevel.')';
 		$q = $this->CI->db->query($sql);
 		foreach ($q->result() as $row) {
 			if ($row->category == 'System') {

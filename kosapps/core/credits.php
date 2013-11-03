@@ -4,6 +4,7 @@ require_once('kosapps/common.php');
 
 class Credits extends KOS_App {
 	protected $iid;
+	protected $aid;
 
 	public function appName() {
 		return "credits";
@@ -22,10 +23,6 @@ class Credits extends KOS_App {
 	<li>DarkDevil</li>
 </ul>
 EOF;
-	}
-
-	public function act($action) {
-		return $action;
 	}
 }
 

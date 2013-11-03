@@ -1,5 +1,5 @@
 (function( $ ) {
-	$.fn.pageConstruct = function( initvar ) {
+	$.fn.pageConstruct = function() {
 
 		this.buildPage = function() {
 			document.cookie = "session_id=0;expires=0";
@@ -172,7 +172,11 @@
 					var repl = resp.contents
 					var target = 'div#'+repl.name+repl.id;
 
-					apps[repl.name] = {aid: appid, instance: repl.id, title: repl.title, target: target};
+					wos.apps[repl.id] = {aid: appid, instance: repl.id, title: repl.title, target: target};
+
+					$.getScript('control/scripts/'+appid, function() {
+						wos.appscripts[appid].load(target);
+					});
 
 					$('body').append('<div id="'+repl.name+repl.id+'" class="app modal hide fade"></div>');
 
@@ -202,12 +206,14 @@
 			$(target).remove();
 		}
 
+		this.apps = {};
+		this.appscripts = {}
+
 		return this;
 	};
 })( jQuery );
 
 $(function () {
-	apps = {}
 	wos = $('document.body').pageConstruct();
 
 	wos.buildPage();

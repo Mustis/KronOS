@@ -21,21 +21,39 @@ class Msession extends CI_Model {
 		return $this->lastError;
 	}
 
-	protected function getApp($aid, $iid, $file, $class) {
-		if (!is_file($this->config->item('app_prefix').$file)) {
-			return $this->setError('App file does not exist');
+	protected function includeApp($file) {
+		$f = $this->config->item('app_prefix').$file;
+		if (!is_file($f)) {
+			return $this->setError('App file does not exist '.$f);
 		}
-		if (!(include_once $this->config->item('app_prefix').$file)) {
-			return $this->setError('Include error');
+		if (!(include_once $f)) {
+			return $this->setError('Include error '.$f);
 		}
-
-		return new $class($iid);
 	}
+
+	protected function getApp($aid, $iid, $file, $class) {
+		$this->includeApp($file);
+		return new $class($iid, $aid);
+	}
+
+	public function getAppClass($aid) {
+		$this->db->select('classname, filename');
+		$this->db->where('aid', $aid);
+		$q = $this->db->get('apps');
+		if ($q->num_rows() == 0)
+			return FALSE;
+		$row = $q->row();
+		$filename = $row->filename;
+		$classname = $row->classname;
+		$this->includeApp($filename);
+		return $classname;
+	}
+
 	public function getAppInst($iid) {
-		if ($this->apps[$iid]) {
+		if (isset($this->apps[$iid])) {
 			return $this->apps[$iid];
 		} else {
-			$this->db->select('aid');
+			$this->db->select('aid, corename');
 			$this->db->where('iid', $iid);
 			$q = $this->db->get('session_apps');
 			if ($q->num_rows() == 0)
@@ -43,13 +61,20 @@ class Msession extends CI_Model {
 			$row = $q->row();
 			$aid = $row->aid;
 
-			$this->db->select('classname, filename');
-			$this->db->where('aid', $aid);
-			$q = $this->db->get('apps');
-			if ($q->num_rows() == 0)
-				return FALSE;
-			$row = $q->row();
-			return $this->getApp($aid, $iid, $row->filename, $row->classname);
+			if ($aid == -1) {
+				$filename = 'core/'.$row->corename.'.php';
+				$classname = ucfirst($row->corename);
+			} else {
+				$this->db->select('classname, filename');
+				$this->db->where('aid', $aid);
+				$q = $this->db->get('apps');
+				if ($q->num_rows() == 0)
+					return FALSE;
+				$row = $q->row();
+				$filename = $row->filename;
+				$classname = $row->classname;
+			}
+			return $this->getApp($aid, $iid, $filename, $classname);
 		}
 	}
 
@@ -57,6 +82,7 @@ class Msession extends CI_Model {
 		$idata = array(
 			'sid' => $this->user->sid(),
 			'aid' => -1,
+			'corename' => $name,
 		);
 		$this->db->insert('session_apps', $idata);
 		$iid = $this->db->insert_id();

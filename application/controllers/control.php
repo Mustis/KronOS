@@ -32,7 +32,11 @@ class Control extends CI_Controller {
 	}
 
 	public function act($iid, $action) {
-//		return $this->msession->getAppInst($iid)->act($action);
+		$this->json->reply($this->msession->getAppInst($iid)->act($action));
+	}
+
+	public function scripts($aid) {
+		$this->output->set_output(call_user_func(array($this->msession->getAppClass($aid), 'scripts'), $aid));
 	}
 
 	public function close($iid) {

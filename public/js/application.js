@@ -175,7 +175,7 @@
 					wos.apps[repl.id] = {aid: appid, instance: repl.id, title: repl.title, target: target};
 
 					$.getScript('control/scripts/'+appid, function() {
-						wos.appscripts[appid].load(target);
+						wos.appscripts[appid].load(target+' > .modal-body');
 					});
 
 					$('body').append('<div id="'+repl.name+repl.id+'" class="app modal hide fade"></div>');
